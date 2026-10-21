@@ -1116,7 +1116,26 @@ function showParentReply(type,index){
 
     document.getElementById("reply-question").innerText = item.q;
 
-    document.getElementById("reply-content").innerText = item.reply;
+    const replyElement = document.getElementById("reply-content");
+
+const emphasizedText = "也可以一起比較課程安排、孩子平常的學習狀況，以及老師能提供哪些協助。";
+
+if (item.q === "隔壁補習班一個月便宜800，你們差在哪裡？") {
+    const escapeHTML = (text) => text.replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+
+    replyElement.innerHTML = escapeHTML(item.reply).replace(
+        escapeHTML(emphasizedText),
+        `<em class="font-semibold">${escapeHTML(emphasizedText)}</em>`
+    );
+} else {
+    replyElement.textContent = item.reply;
+}
 
     document.getElementById("reply-tip").innerText = item.tip;
 
